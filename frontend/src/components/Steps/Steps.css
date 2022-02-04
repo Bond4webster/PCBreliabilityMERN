@@ -1,0 +1,63 @@
+.steps {
+    background-color: #f1f1f1;
+    position: relative;
+}
+.stepsWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 38px 15px 57px;
+}
+ .step {
+    background-color: #ccc;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+ .step01 {
+    z-index: 3;
+}
+
+ .step.active {
+    background-color: #2f2f2f;
+}
+  .step02 {
+    z-index: 2;
+}
+  .step03 {
+    z-index: 1;
+}
+  .title {
+    position: absolute;
+    color: #939393;
+    left: 50%;
+    bottom: -50px;
+    text-align: center;
+    transform: translateX(-50%);
+}
+ .step:before {
+    content: "";
+    display: block;
+    background-color: #aaa;
+    height: 2px;
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    width: 230px;
+}
+ .title.active {
+    color: #2f2f2f;
+    font-weight: 700;
+}
+.step.active:before {
+    background-color: #2f2f2f;
+}
+.step01::before{
+    content: none;
+}
