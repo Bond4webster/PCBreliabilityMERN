@@ -7,6 +7,8 @@ import {
     updateProduct,
     deleteProduct
 } from "../controllers/Products.js";
+
+import {getAllValues} from "../controllers/KWidth.js";
  
 const router = express.Router();
  
@@ -17,7 +19,6 @@ router.patch('/:id', updateProduct);
 router.delete('/:id', deleteProduct);
 
 router.post('/sum',function(req,res){
-    console.log(req.body);
     const param = req.body.param;
     const result = 1.11e-3 * param.kExploitation * param.kAcceptance * param.kLayer * (param.countHoles * Math.sqrt(1 + param.countHoles / (param.lengthPcb * param.widthPcb) ) + param.countPrintedConductor * ( 1+0.1 * Math.sqrt(param.lengthPcb * param.widthPcb))/3 * param.kWidth);
     //kExploitation kAcceptance kLayer countHoles lengthPcb widthPcb countPrintedConductor kWidth
