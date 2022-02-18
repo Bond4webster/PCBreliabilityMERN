@@ -3,9 +3,12 @@ import db from "../config/database.js";
  
 const { DataTypes } = Sequelize;
  
-const KWidth = db.define('kwidth',{
-    width:{
-        type: DataTypes.DOUBLE
+const Acceptance = db.define('acceptance',{
+    name:{
+        type: DataTypes.STRING
+    },
+    description:{
+        type: DataTypes.STRING
     },
     value:{
         type: DataTypes.INTEGER
@@ -15,4 +18,4 @@ const KWidth = db.define('kwidth',{
     timestamps: false
 });
  
-export default KWidth;
+export default Acceptance;

@@ -12,11 +12,15 @@ import {getAllValues} from "../controllers/KWidth.js";
  
 const router = express.Router();
  
+router.get('/kwidth',getAllValues);
+
 router.get('/', getAllProducts);
 router.get('/:id', getProductById);
 router.post('/', createProduct);
 router.patch('/:id', updateProduct);
 router.delete('/:id', deleteProduct);
+
+
 
 router.post('/sum',function(req,res){
     const param = req.body.param;
