@@ -12,9 +12,22 @@ export const Clever = (props) => {
           const obj = { n: 0, t: 0, i: i };
           arr.push(obj);
         }
-        console.log(arr)
         setCycleArr(arr)
       }, [cycle]);
+    
+    const getObjs = (el) => {
+        if(el.t!==0 || el.n!==0){
+            const newArr = cycleArr.map(e=>{
+                if(e.i === el.i){
+                    return el
+                }else{
+                    return e
+                }
+                
+            })
+            setCycleArr(newArr)
+        }
+    }  
 
     return (
         <div>
@@ -28,11 +41,12 @@ export const Clever = (props) => {
                 {cycle > 0 ? (
                     <div>
                         {cycleArr.map((el) => (
-                            <Terms el={el} />
+                            <Terms el={el} getObjs={getObjs} />
                         ))}
                     </div>
                 ) : null}
             </fieldset>
+            {JSON.stringify(cycleArr)}
         </div>
     );
 };
