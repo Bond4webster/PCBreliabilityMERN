@@ -10,7 +10,7 @@ export const Homepage = ()=>{
             <div className="container homepage-menu">
                 <h1 className="name">Расчет надежности печатных плат</h1>
                 <Link  className="btn btn-success main-menu-btn" to="/calculation">Рассчитать</Link>  
-                <Link  className="btn btn-success main-menu-btn" to="/history">История</Link>  
+                <Link  className="btn btn-success main-menu-btn" to="/history">Архив</Link>  
             </div>
         </div>
     )

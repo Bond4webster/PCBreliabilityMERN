@@ -15,7 +15,7 @@ export const Select = (props) => {
     }
 
     return (
-        <div className="form-group mb-3">
+        <div className="form-group mb-3 col-12 col-sm-6 col-md-4">
             <label htmlFor={props.id}>{props.label}</label>
             <select id={props.id} className="form-select" aria-label="select" {...props}>
                 {values.map((elem, index) => (

@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input } from "./Input";
 
 export const Terms = ({ el,getObjs }) => {
   const [cycleObj, setCycleObj] = useState(el);
 
+  useEffect(()=>{
+    setCycleObj(el)
+  },[el])
+
   return (
     <div key={el.i}>
       <Input
         key={`first var ${el.i}`}
-        label={"Введите переменную n"}
+        label={`n ${el.i+1}`}
         value={cycleObj.n}
         onChange={(e) => {
           setCycleObj({ ...cycleObj, n: e.target.value })
@@ -17,14 +21,13 @@ export const Terms = ({ el,getObjs }) => {
       />
       <Input
         key={`second var ${el.i}`}
-        label={"Введите переменную t"}
+        label={`t ${el.i+1}`}
         value={cycleObj.t}
         onChange={(e) => {
           setCycleObj({ ...cycleObj, t: e.target.value })
           getObjs({ ...cycleObj, t: e.target.value })
         }}
       />
-      {JSON.stringify(cycleObj)}
     </div>
   );
 };

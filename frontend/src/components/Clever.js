@@ -38,12 +38,10 @@ export const Clever = (props) => {
             />
             <fieldset>
                 <legend>Циклы</legend>
-                {cycle > 0 ? (
-                    <div>
-                        {cycleArr.map((el) => (
-                            <Terms el={el} getObjs={getObjs} />
-                        ))}
-                    </div>
+                {cycle > 0 ? (            
+                        cycleArr.map((el,i) => (
+                            <Terms el={el} getObjs={getObjs} key={`Term-${i}`} />
+                        )) 
                 ) : null}
             </fieldset>
             {JSON.stringify(cycleArr)}
