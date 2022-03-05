@@ -16,13 +16,19 @@ export const Steps = ({ sendToResult }) => {
         {
             kExploitation: "2",
             kAcceptance: "1",
-            kLayer: "1",
+            layer: "1",
             countHoles: "338",
-            lengthPcb: "20",
-            widthPcb: "16",
-            countPrintedConductor: "224",
+            length: "20",
+            width: "16",
             kWidth: "1",
-            cycleCount: "1"
+            cMountConnect:"110",
+            cMetalConnect:"12",
+            n1:"12",
+            n2:"0",
+            cycleCount: "2",
+            cycleCount2:"4",
+            sum1:[],
+            sum2:[]
         });
 
     const resolve = async (e) => {
@@ -37,7 +43,12 @@ export const Steps = ({ sendToResult }) => {
 
 
     }
-
+    const getSum1 =(sum1)=>{
+        setParam({...param,sum1})
+     }
+     const getSum2 =(sum2)=>{
+        setParam({...param,sum2})
+     }
     const sendCurrAcceptance = (kAcceptance) => {
         setParam({ ...param, kAcceptance })
     }
@@ -53,10 +64,10 @@ export const Steps = ({ sendToResult }) => {
                         <form onSubmit={resolve}>
                             <div className="row">
                                 <Input
-                                    label={"Коэффициент слоев"}
-                                    id="kLayer"
-                                    value={param.kLayer}
-                                    onChange={(e) => setParam({ ...param, kLayer: e.target.value })}
+                                    label={"Количество слоев"}
+                                    id="layer"
+                                    value={param.layer}
+                                    onChange={(e) => setParam({ ...param, layer: e.target.value })}
                                 />
                                 <Input
                                     label={"Общее количество отверстий"}
@@ -66,21 +77,39 @@ export const Steps = ({ sendToResult }) => {
                                 />
                                 <Input
                                     label={"Длина платы, см"}
-                                    id="lengthPcb"
-                                    value={param.lengthPcb}
-                                    onChange={(e) => setParam({ ...param, lengthPcb: e.target.value })}
+                                    id="length"
+                                    value={param.length}
+                                    onChange={(e) => setParam({ ...param, length: e.target.value })}
                                 />
                                 <Input
                                     label={"Ширина платы, см"}
-                                    id="widthPcb"
-                                    value={param.widthPcb}
-                                    onChange={(e) => setParam({ ...param, widthPcb: e.target.value })}
+                                    id="width"
+                                    value={param.width}
+                                    onChange={(e) => setParam({ ...param, width: e.target.value })}
                                 />
                                 <Input
-                                    label={"Количество печатных проводников"}
-                                    id="countPrintedConductor"
-                                    value={param.countPrintedConductor}
-                                    onChange={(e) => setParam({ ...param, countPrintedConductor: e.target.value })}
+                                    label={"Количество соединений поверхностного монтажа"}
+                                    id="cMountConnect"
+                                    value={param.cMountConnect}
+                                    onChange={(e) => setParam({ ...param, cMountConnect: e.target.value })}
+                                />
+                                <Input
+                                    label={"Количество металлизированных отверстий"}
+                                    id="cMetalConnect"
+                                    value={param.cMetalConnect}
+                                    onChange={(e) => setParam({ ...param, cMetalConnect: e.target.value })}
+                                />
+                                <Input
+                                    label={"Количество сквозных отверстий пропаянных способом «пайка волной»"}
+                                    id="n1"
+                                    value={param.n1}
+                                    onChange={(e) => setParam({ ...param, n1: e.target.value })}
+                                />
+                                <Input
+                                    label={"Количество сквозных отверстий пропаянных ручным способом"}
+                                    id="n2"
+                                    value={param.n2}
+                                    onChange={(e) => setParam({ ...param, n2: e.target.value })}
                                 />
                                 <Select
                                     label={"Ширина проводящих дорожек"}
@@ -102,7 +131,15 @@ export const Steps = ({ sendToResult }) => {
                                     id="cycleCount"
                                     value={param.cycleCount}
                                     onChange={(e) => setParam({ ...param, cycleCount: e.target.value })}
+                                    getSum={getSum1}
                                 />
+                                <Clever
+                                    id="cycleCount2"
+                                    value={param.cycleCount2}
+                                    onChange={(e) => setParam({ ...param, cycleCount2: e.target.value })}
+                                    getSum={getSum2}
+                                />
+                                
                                 <button type="submit" className="btn btn-success mt-2">Отправить</button>
                             </div>
                         </form>

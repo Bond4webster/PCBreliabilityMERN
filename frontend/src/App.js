@@ -13,7 +13,7 @@ function App() {
 
   const [res,setRes]= useState({});
   const sendToResult =(param)=>{
-    setRes({...res,result:param.result})
+    setRes({...res, ...param})
   }
   
   return (
@@ -23,7 +23,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage />}/>
             <Route path="/calculation" element={<Steps sendToResult={sendToResult}/>}/>
-            <Route path="/result" element={<Result result={res.result}/>}/>
+            <Route path="/result" element={<Result result={res}/>}/>
             <Route path="/list" element={<ProductList/>}/>
             <Route path="/add" element={<AddProduct/>}/>
             <Route path="/edit/:id" element={<EditProduct/>}/>

@@ -9,7 +9,7 @@ export const Terms = ({ el,getObjs }) => {
   },[el])
 
   return (
-    <div key={el.i}>
+    <div className="row" key={el.i}>
       <Input
         key={`first var ${el.i}`}
         label={`n ${el.i+1}`}

@@ -1,6 +1,6 @@
 import express from "express";
- 
-import { 
+
+import {
     getAllProducts,
     createProduct,
     getProductById,
@@ -8,11 +8,11 @@ import {
     deleteProduct
 } from "../controllers/Products.js";
 
-import {getAllValues} from "../controllers/KWidth.js";
- 
+import { getAllValues } from "../controllers/KWidth.js";
+
 const router = express.Router();
- 
-router.get('/kwidth',getAllValues);
+
+router.get('/kwidth', getAllValues);
 
 router.get('/', getAllProducts);
 router.get('/:id', getProductById);
@@ -22,17 +22,53 @@ router.delete('/:id', deleteProduct);
 
 
 
-router.post('/sum',function(req,res){
+router.post('/sum', function (req, res) {
     const param = req.body.param;
-    const result = 1.11e-3 * param.kExploitation * param.kAcceptance * param.kLayer * (param.countHoles * Math.sqrt(1 + param.countHoles / (param.lengthPcb * param.widthPcb) ) + param.countPrintedConductor * ( 1+0.1 * Math.sqrt(param.lengthPcb * param.widthPcb))/3 * param.kWidth);
-    //kExploitation kAcceptance kLayer countHoles lengthPcb widthPcb countPrintedConductor kWidth
-    // a=(1.11e-3*2*1*1*(338*Math.sqrt(1+338/320)+224*(1+0.1*Math.sqrt(320))/3*1))   .toFixed(16) -сначала до суммы лямбда соединений
-    //b=((110*1.3e-9+326*6.9e-11+1.7e-11*(0*1+12*(1+13)))*2*1) - сумма лямбда соединений
-    //c = ((0.238*1.06+0.238*1.16)/(0.477+0.523))-этапы работы с суммой этапов и тау
-    //d=(1+3e-3*((68.65*Math.pow(23,0.68))+(68.65*Math.pow(18,0.68))+(68.65*Math.pow(10,0.68))+(34.12*Math.pow(7,0.68)))) - циклы
-    //итог res=(a+b)*c*d 4.532761755344466e-9
-    res.json({result})
+
+    param.sum1 = [{t:33,tau:23.8},{t:38,tau:23.8}]
+
+    //----first parameter-----
+    const E26 = 0.0000000013;
+    const E27 = 0.000000000069;
+    const E28 = 0.000000000017;
+    const kLayer = param.layer <= 2 ? 1 : 0.7 * Math.sqrt(param.layer);
+    const square = param.width * param.length;
+    const E7 = (+param.countHoles + Number(param.cMountConnect)) / 2;
+    const E30 = param.countHoles - param.cMetalConnect;
+    const E16 = param.sum1.reduce((prev, el) => {
+        return prev += el.tau;
+    }, 0)
+    const E17 = 100 - E16;
+    
+    const I17 = param.countHoles * Math.sqrt(1 + param.countHoles / square);
+    const M17 = E7 * (1 + 0.1 * Math.sqrt(square)) / 3 * param.kWidth;
+    const E9 = (param.cMountConnect * E26 + E30 * E27 + E28 * (param.n1 * kLayer + param.n2 * (kLayer + 13))) * param.kExploitation * param.kAcceptance;
+
+    const H70 = param.sum1.reduce((prev, el) => {
+        const kT = Math.exp(1740 * (1 / 303 - 1 / (273 + el.t)))
+        const res = kT * el.tau;
+        return prev += res;
+    }, 0) / (E16 + E17)
+    
+    const O21 = (0.00111 * param.kExploitation * param.kAcceptance * kLayer * (I17 + M17) + E9) * H70;
+    //------------------------------
+
+    //----second parameter-----
+    const H77 = param.sum2.reduce((prev, el) => {
+        const res = Math.pow(el.n, 0.76) * Math.pow(el.t, 0.68);
+        return prev += res;
+    }, 0)
+    const K26 = (1 + 0.003 * H77) * 0.000000001;
+    
+    //------------------------------
+
+    const lambda = O21 * K26;
+
+    const Pt = Math.exp(-1 * lambda * 8760);
+    const tn = 8760*E16/100;
+
+    res.json({ ...param,kLayer,square,E7,E9,E16,E17,E30, lambda,Pt,tn })
     res.send('200');
 });
- 
+
 export default router;

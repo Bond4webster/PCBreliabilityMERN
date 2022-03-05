@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "./Input";
 import { Terms } from "./Terms";
 export const Clever = (props) => {
@@ -27,7 +27,10 @@ export const Clever = (props) => {
             })
             setCycleArr(newArr)
         }
-    }  
+    }
+    useEffect(()=>{
+        props.getSum(cycleArr)
+    },[cycleArr])  
 
     return (
         <div>
@@ -44,7 +47,6 @@ export const Clever = (props) => {
                         )) 
                 ) : null}
             </fieldset>
-            {JSON.stringify(cycleArr)}
         </div>
     );
 };
