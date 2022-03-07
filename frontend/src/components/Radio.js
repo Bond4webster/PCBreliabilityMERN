@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Label } from './Label';
 
 export const Radio = (props) => {
     const [value, setValue] = useState(props.value);
@@ -19,15 +20,7 @@ export const Radio = (props) => {
                 value={value}
                 onChange={handleChange}
             />
-            {props.sub
-            ? <label className="form-check-label" htmlFor={props.id} key={`Label for ${props.name}`}>
-                {props.title}<sub>{props.sub}</sub>{" - "+props.description}
-              </label>
-            : <label className="form-check-label" htmlFor={props.id} key={`Label for ${props.name}`}>
-                {props.title + " - " + props.description}
-              </label>
-            }
-            
+            <Label id={props.id} label={props.title} sub={props.sub}/>{" - "+props.description}            
         </div>
     );
 }

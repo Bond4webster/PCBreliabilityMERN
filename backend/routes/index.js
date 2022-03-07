@@ -25,7 +25,8 @@ router.delete('/:id', deleteProduct);
 router.post('/sum', function (req, res) {
     const param = req.body.param;
 
-    param.sum1 = [{t:33,tau:23.8},{t:38,tau:23.8}]
+    //param.sum1 = [{t:33,tau:23.8},{t:38,tau:23.8}]
+    console.log(param.sum1)
 
     //----first parameter-----
     const E26 = 0.0000000013;
@@ -36,7 +37,7 @@ router.post('/sum', function (req, res) {
     const E7 = (+param.countHoles + Number(param.cMountConnect)) / 2;
     const E30 = param.countHoles - param.cMetalConnect;
     const E16 = param.sum1.reduce((prev, el) => {
-        return prev += el.tau;
+        return prev += +el.tau;
     }, 0)
     const E17 = 100 - E16;
     
@@ -45,7 +46,8 @@ router.post('/sum', function (req, res) {
     const E9 = (param.cMountConnect * E26 + E30 * E27 + E28 * (param.n1 * kLayer + param.n2 * (kLayer + 13))) * param.kExploitation * param.kAcceptance;
 
     const H70 = param.sum1.reduce((prev, el) => {
-        const kT = Math.exp(1740 * (1 / 303 - 1 / (273 + el.t)))
+        const kT = Math.exp(1740 * (1 / 303 - 1 / (273 + +el.t)))
+        el.kT = kT;
         const res = kT * el.tau;
         return prev += res;
     }, 0) / (E16 + E17)
@@ -55,7 +57,8 @@ router.post('/sum', function (req, res) {
 
     //----second parameter-----
     const H77 = param.sum2.reduce((prev, el) => {
-        const res = Math.pow(el.n, 0.76) * Math.pow(el.t, 0.68);
+        el.kC = Math.pow(el.n, 0.76);
+        const res = el.kC * Math.pow(el.t, 0.68);
         return prev += res;
     }, 0)
     const K26 = (1 + 0.003 * H77) * 0.000000001;

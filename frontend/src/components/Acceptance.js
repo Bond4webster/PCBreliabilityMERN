@@ -23,20 +23,22 @@ export const Acceptance = (props) => {
     }
 
     return (
-        <div>
-            <label className='mb-3'>Выберите приемку</label>
-            {values.map((elem, index) => (
-                <Radio
-                    name="acceptance"
-                    id={`Acceptance-${elem.id}`}
-                    value={elem.value}
-                    currValue={currValue}
-                    key={`acceptance-${index}`}
-                    title={elem.name}
-                    description={elem.description}
-                    getCurrValue={getCurrValue}
-                />
-            ))}
+        <div className="col-12 col-md-6">
+            <label className='mb-1'>Приемка</label>
+            <div className="radio-container">
+                {values.map((elem, index) => (
+                    <Radio
+                        name="acceptance"
+                        id={`Acceptance-${elem.id}`}
+                        value={elem.value}
+                        currValue={currValue}
+                        key={`acceptance-${index}`}
+                        title={elem.name}
+                        description={elem.description}
+                        getCurrValue={getCurrValue}
+                    />
+                ))}
+            </div>
         </div>
     )
 }

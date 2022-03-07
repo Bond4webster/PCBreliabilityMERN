@@ -1,4 +1,6 @@
 import React from 'react';
+import { TableCycle } from '../components/TableCycle';
+import { TableTemp } from '../components/TableTemp';
 
 export const Result = ({ result }) => {
     console.log(result)
@@ -50,6 +52,10 @@ export const Result = ({ result }) => {
                     </tr>
                 </tbody>
             </table>
+            <div className="row">
+                <TableTemp arr={result.sum1}/>
+                <TableCycle arr={result.sum2}/>
+            </div>
             <p className='pl-3'>
                 {result.lambda ? `Интенсивность отказов печатной платы: ${result.lambda.toExponential(2)}` : "Заполните пустые поля"}<br />
                 Вероятность безотказной работы печатной платы: {result.Pt}<br />

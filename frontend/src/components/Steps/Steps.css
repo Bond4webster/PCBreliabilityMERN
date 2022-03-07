@@ -2,3 +2,24 @@
     background-color: #f1f1f1;
     position: relative;
 }
+.radio-container{
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    height: 340px;
+    overflow-y: auto;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+}
+
+fieldset {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 300px;
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+}
+fieldset .caption{
+    text-decoration: underline;
+    text-align: center;
+    margin: 0;
+}

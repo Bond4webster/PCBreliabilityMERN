@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Label } from './Label';
 import axios from "axios";
 
 export const Select = (props) => {
@@ -15,8 +16,8 @@ export const Select = (props) => {
     }
 
     return (
-        <div className="form-group mb-3 col-12 col-sm-6 col-md-4">
-            <label htmlFor={props.id}>{props.label}</label>
+        <div className="form-group mb-3 col-12 col-sm-6 col-md-auto">
+            <Label id={props.id} label={props.label} sub={props.sub}/>
             <select id={props.id} className="form-select" aria-label="select" {...props}>
                 {values.map((elem, index) => (
                     <option key={index} value={elem.value}>{elem.width}</option>

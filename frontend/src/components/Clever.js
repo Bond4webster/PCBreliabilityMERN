@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Input } from "./Input";
 import { Terms } from "./Terms";
-export const Clever = (props) => {
+export const Clever = ({value,var1,var2,label,getSum,legend}) => {
 
-    const [cycle, setCycle] = useState(props.value);
+    const [cycle, setCycle] = useState(value);
     const [cycleArr, setCycleArr] = useState([]);
-
+    
     useEffect(() => {
         const arr = [];
         for (let i = 0; i < cycle; i++) {
-          const obj = { n: 0, t: 0, i: i };
+          const obj = { [var1]: 0, [var2]: 0, i: i };
           arr.push(obj);
         }
         setCycleArr(arr)
@@ -29,21 +29,21 @@ export const Clever = (props) => {
         }
     }
     useEffect(()=>{
-        props.getSum(cycleArr)
+        getSum(cycleArr)
     },[cycleArr])  
 
     return (
-        <div>
+        <div className="col-12 col-md-6">
             <Input
-                label={"Введите количество циклов"}
+                label={label}
                 value={cycle}
                 onChange={(e) => setCycle(e.target.value)}
             />
             <fieldset>
-                <legend>Циклы</legend>
+                <legend className="caption">{legend}</legend>
                 {cycle > 0 ? (            
                         cycleArr.map((el,i) => (
-                            <Terms el={el} getObjs={getObjs} key={`Term-${i}`} />
+                            <Terms el={el} getObjs={getObjs} key={`Term-${i}`} var1={var1} var2={var2}/>
                         )) 
                 ) : null}
             </fieldset>

@@ -8,7 +8,7 @@ export const Navbar = () => {
     return null
   } else {
     return (
-      <nav className="navbar navbar-dark navbar-expand-lg justify-content-between">
+      <nav className="navbar navbar-dark navbar-expand-sm justify-content-between">
         <div className="d-flex">
           <div className="navbar-brand">
             Надежность ПП
