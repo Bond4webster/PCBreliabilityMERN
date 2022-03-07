@@ -8,12 +8,19 @@ import {Navbar} from "./components/Navbar";
 import {Steps} from "./components/Steps/Steps.js";
 import {Result} from "./pages/Result.js";
 import {Homepage} from "./pages/Homepage/Homepage.js";
+import {History} from "./pages/History.js"
  
 function App() {
 
-  const [res,setRes]= useState({});
+  const [res,setRes]= useState(0);
   const sendToResult =(param)=>{
-    setRes({...res, ...param})
+    setRes(param)
+  }
+
+  const [card, setCard] = useState({});
+  const sendCardFromHistory = (card)=>{
+    console.log('card from app js',card)
+    setCard(card)
   }
   
   return (
@@ -23,7 +30,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage />}/>
             <Route path="/calculation" element={<Steps sendToResult={sendToResult}/>}/>
-            <Route path="/result" element={<Result result={res}/>}/>
+            <Route path={`/result/${res}`} element={<Result resUrl={res} result={card}/>}/>
+            <Route path="/history" element={<History sendToResult={sendCardFromHistory}/>}/>
             <Route path="/list" element={<ProductList/>}/>
             <Route path="/add" element={<AddProduct/>}/>
             <Route path="/edit/:id" element={<EditProduct/>}/>

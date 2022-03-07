@@ -1,8 +1,9 @@
 import React from 'react';
 
 export const TableTemp = ({ arr }) => {
-
-    return (
+    
+    if(arr){
+        return (
         <div className="col-6 col-md-3">
             <table className="table">
                 <thead>
@@ -26,5 +27,7 @@ export const TableTemp = ({ arr }) => {
                 </tbody>
             </table>
         </div >
-    )
+    )}else{
+        return null
+    }
 }

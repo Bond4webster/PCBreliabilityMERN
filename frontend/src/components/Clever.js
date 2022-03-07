@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Input } from "./Input";
 import { Terms } from "./Terms";
-export const Clever = ({value,var1,var2,label,getSum,legend}) => {
+export const Clever = ({value,var1,var2,label,getSum,legend,description,descriptionVar1,descriptionVar2}) => {
 
     const [cycle, setCycle] = useState(value);
     const [cycleArr, setCycleArr] = useState([]);
@@ -37,13 +37,14 @@ export const Clever = ({value,var1,var2,label,getSum,legend}) => {
             <Input
                 label={label}
                 value={cycle}
+                description={description}
                 onChange={(e) => setCycle(e.target.value)}
             />
             <fieldset>
                 <legend className="caption">{legend}</legend>
                 {cycle > 0 ? (            
                         cycleArr.map((el,i) => (
-                            <Terms el={el} getObjs={getObjs} key={`Term-${i}`} var1={var1} var2={var2}/>
+                            <Terms el={el} getObjs={getObjs} key={`Term-${i}`} var1={var1} var2={var2} descriptionVar1={descriptionVar1} descriptionVar2={descriptionVar2}/>
                         )) 
                 ) : null}
             </fieldset>

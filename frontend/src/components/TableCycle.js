@@ -1,8 +1,7 @@
 import React from 'react';
 
 export const TableCycle = ({ arr }) => {
-
-    return (
+    if(arr){return ( 
         <div className="col-6 col-md-3">
             <table className="table">
                 <thead>
@@ -26,5 +25,7 @@ export const TableCycle = ({ arr }) => {
                 </tbody>
             </table>
         </div >
-    )
+    )}else{
+        return null
+    }
 }
