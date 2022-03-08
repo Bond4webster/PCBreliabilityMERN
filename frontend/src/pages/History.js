@@ -21,8 +21,8 @@ export const History = ({sendToResult}) => {
     }
 
     return (
-        <div>
-            <h1>Архив расчетов</h1>
+        <div className="container">
+            <h1 className="mt-2 mb-3">Архив расчетов</h1>
             <div className="histories-container">
             { cards.map((card, index) => (
                         <Card
