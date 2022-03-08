@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `mern_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
-USE `mern_db`;
 -- MySQL dump 10.13  Distrib 8.0.26, for Win64 (x86_64)
 --
 -- Host: localhost    Database: mern_db
@@ -44,6 +42,31 @@ INSERT INTO `acceptance` VALUES (1,'Приемка 1','Приемка отдел
 UNLOCK TABLES;
 
 --
+-- Table structure for table `description`
+--
+
+DROP TABLE IF EXISTS `description`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `description` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Coefficient` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Description` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `description`
+--
+
+LOCK TABLES `description` WRITE;
+/*!40000 ALTER TABLE `description` DISABLE KEYS */;
+INSERT INTO `description` VALUES (1,'layer','Количество слоёв в печатной плате'),(2,'countHoles','Общее количество отверстий в печатной плате (монтажных и переходных)'),(3,'a','Длина печатной платы в см'),(4,'b','Ширина печатной платы в см'),(5,'cMountConnect','Количество на печатной плате соединений для элементов поверхностного монтажа'),(6,'cMetalConnect','Количество металлизированных отверстий'),(7,'n1','Количество сквозных отверстий пропаянных способом «пайка волной»'),(8,'n2','Количество сквозных отверстий пропаянных ручным способом'),(9,'W','Ширина проводящих дорожек (печатных проводников)'),(10,'cycleCount','Число этапов работы (наработки) для печатной платы с разными значениями температуры окружающей среды t в i-м рабочем режиме'),(11,'cycleCount2','Число этапов работы (наработки) и нерабочих режимов (бездействия, хранения, ожидания)'),(12,'tPP','Cредняя температура окружающего воздуха вблизи печатной платы (возле элементов) для i-го рабочего этапа;'),(13,'tau','Годовая доля времени для печатной платы в постоянном режиме работы с питанием и температуре t i-го этапа работы'),(14,'nj','Количество циклов в год для j-го этапа эксплуатации, которым подвергается печатная плата и соединения с температурными изменениями Δt'),(15,'dtj','Средняя амплитуда теплового изменения в циклах j-го этапа эксплуатации');
+/*!40000 ALTER TABLE `description` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `exploitation`
 --
 
@@ -68,6 +91,55 @@ LOCK TABLES `exploitation` WRITE;
 /*!40000 ALTER TABLE `exploitation` DISABLE KEYS */;
 INSERT INTO `exploitation` VALUES (1,'З','р','Стационарная аппаратура, эксплуатируемая в лабораторных условиях, капитальных жилых помещениях, помещениях с искусственно регулируемыми климатическими условиями',1.00),(2,'З','чр','Стационарная аппаратура, эксплуатируемая в нерегулярно отапливаемых помещениях, в производственных, в том числе вентилируемых подземных помещениях',1.20),(3,'З','ов','Стационарная аппаратура, эксплуатируемая под навесом или в неотапливаемых помещениях, где климатические условия близки к условиям открытого воздуха',1.70),(4,'З','пн','Переносная аппаратура, используемая в режиме стационарного применения в любых помещениях',2.00),(5,'З','м','Мобильная аппаратура, эксплуатируемая в любых помещениях, в том числе в кузовах и прицепах автомобилей, палатках или на открытом воздухе',3.00),(6,'З','мд','Мобильная аппаратура, эксплуатируемая на железнодорожном транспорте, в кузовах и салонах автомашин и других механических транспортных средств',4.00),(7,'Б','ск','Аппаратура грузовых и пассажирских самолётов, эксплуатируемая в отсеках, где находятся люди',5.00);
 /*!40000 ALTER TABLE `exploitation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `history`
+--
+
+DROP TABLE IF EXISTS `history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `history` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `kExploitation` double DEFAULT NULL,
+  `kAcceptance` int(11) DEFAULT NULL,
+  `layer` int(11) DEFAULT NULL,
+  `countHoles` int(11) DEFAULT NULL,
+  `a` double DEFAULT NULL,
+  `b` double DEFAULT NULL,
+  `kWidth` int(11) DEFAULT NULL,
+  `cMountConnect` int(11) DEFAULT NULL,
+  `cMetalConnect` int(11) DEFAULT NULL,
+  `n1` int(11) DEFAULT NULL,
+  `n2` int(11) DEFAULT NULL,
+  `cycleCount` int(11) DEFAULT NULL,
+  `cycleCount2` int(11) DEFAULT NULL,
+  `sum1` varchar(1000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sum2` varchar(1000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kLayer` double DEFAULT NULL,
+  `square` double DEFAULT NULL,
+  `countPrintedConductor` double DEFAULT NULL,
+  `sumConnF` double DEFAULT NULL,
+  `tauOn` double DEFAULT NULL,
+  `tauOff` double DEFAULT NULL,
+  `сWaveSoldering` int(11) DEFAULT NULL,
+  `lambda` double DEFAULT NULL,
+  `Pt` double DEFAULT NULL,
+  `tn` double DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `history`
+--
+
+LOCK TABLES `history` WRITE;
+/*!40000 ALTER TABLE `history` DISABLE KEYS */;
+INSERT INTO `history` VALUES (1,'2022-03-07 23:51:21',2,1,1,338,20,16,1,110,12,12,0,2,4,'[{\"t\":\"33\",\"tau\":\"23.8\",\"i\":0,\"kT\":1.0579147436437573},{\"t\":\"38\",\"tau\":\"23.8\",\"i\":1,\"kT\":1.1591870633250354}]','[{\"n\":\"261\",\"t\":\"23\",\"i\":0,\"kC\":68.65098701225978},{\"n\":\"261\",\"t\":\"18\",\"i\":1,\"kC\":68.65098701225978},{\"n\":\"261\",\"t\":\"10\",\"i\":2,\"kC\":68.65098701225978},{\"n\":\"104\",\"t\":\"7\",\"i\":3,\"kC\":34.11499703472625}]',1,320,224,0.00000033139599999999996,47.6,52.4,326,0.000000004526847419054283,0.9999603456028655,4169.76);
+/*!40000 ALTER TABLE `history` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -109,7 +181,7 @@ CREATE TABLE `products` (
   `createdAt` date DEFAULT NULL,
   `updatedAt` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,4 +202,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-19  0:52:55
+-- Dump completed on 2022-03-08  2:58:01

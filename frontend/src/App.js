@@ -16,12 +16,6 @@ function App() {
   const sendToResult =(param)=>{
     setRes(param)
   }
-
-  const [card, setCard] = useState({});
-  const sendCardFromHistory = (card)=>{
-    console.log('card from app js',card)
-    setCard(card)
-  }
   
   return (
     <Router>
@@ -30,8 +24,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage />}/>
             <Route path="/calculation" element={<Steps sendToResult={sendToResult}/>}/>
-            <Route path={`/result/${res}`} element={<Result resUrl={res} result={card}/>}/>
-            <Route path="/history" element={<History sendToResult={sendCardFromHistory}/>}/>
+            <Route path={`/result/:id`} element={<Result resUrl={res} />}/>
+            <Route path="/history" element={<History sendToResult={sendToResult}/>}/>
             <Route path="/list" element={<ProductList/>}/>
             <Route path="/add" element={<AddProduct/>}/>
             <Route path="/edit/:id" element={<EditProduct/>}/>

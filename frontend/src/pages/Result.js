@@ -3,12 +3,10 @@ import axios from 'axios';
 import { TableCycle } from '../components/TableCycle';
 import { TableTemp } from '../components/TableTemp';
 
-export const Result = ({ resUrl,result }) => {
+export const Result = ({ resUrl }) => {
     const [values, setValues] = useState();
-    console.log('result', result)
-    useEffect(() => {
-        getValues();
-    }, []);
+
+    useEffect(() => getValues(), []);
 
     const getValues = async () => {
         const response = await axios.get(`http://localhost:5000/history/${resUrl}`);

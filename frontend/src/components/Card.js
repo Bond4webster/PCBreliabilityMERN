@@ -6,7 +6,7 @@ export const Card = ({card,deleteCard,sendToResult}) => {
     const navigate = useNavigate()
 
     const openRes = ()=>{
-        sendToResult(card)
+        sendToResult(card.id)
         navigate(`/result/${card.id}`)
     }
 
