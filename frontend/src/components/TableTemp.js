@@ -4,7 +4,7 @@ export const TableTemp = ({ arr }) => {
     
     if(arr){
         return (
-        <div className="col-6 col-md-3">
+        <div className="col-12 col-md-6">
             <table className="table">
                 <thead>
                     <tr>

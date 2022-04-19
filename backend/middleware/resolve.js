@@ -3,9 +3,9 @@ export const resolve = async (req, res, next) => {
         const param = req.body.param;
 
         //----first parameter-----
-        const E26 = 0.0000000013;
-        const E27 = 0.000000000069;
-        const E28 = 0.000000000017;
+        const E26 = 1.3;
+        const E27 = 0.069;
+        const E28 = 0.017;
         
         param.kExploitation = Number(param.kExploitation);
         param.kAcceptance = Number(param.kAcceptance);
@@ -34,14 +34,15 @@ export const resolve = async (req, res, next) => {
         const M17 = countPrintedConductor * (1 + 0.1 * Math.sqrt(square)) / 3 * param.kWidth;
         const sumConnF = (param.cMountConnect * E26 + +сWaveSoldering * E27 + E28 * (param.n1 * kLayer + param.n2 * (kLayer + 13))) * param.kExploitation * param.kAcceptance;
 
-        const H70 = param.sum1.reduce((prev, el) => {
+        const nBar2 = param.sum1.reduce((prev, el) => {
             const kT = Math.exp(1740 * (1 / 303 - 1 / (273 + +el.t)))
             el.kT = kT;
             const res = kT * el.tau;
             return prev += res;
         }, 0) / (tauOn + tauOff)
 
-        const O21 = (0.00111 * param.kExploitation * param.kAcceptance * kLayer * (I17 + M17) + sumConnF) * H70;
+        const nBar1 = 0.00111 * param.kExploitation * param.kAcceptance * kLayer * (I17 + M17)
+
         //------------------------------
 
         //----second parameter-----
@@ -50,16 +51,22 @@ export const resolve = async (req, res, next) => {
             const res = el.kC * Math.pow(el.t, 0.68);
             return prev += res;
         }, 0)
-        const K26 = (1 + 0.003 * H77) * 0.000000001;
+        const nBar3 = (1 + 0.003 * H77);
+        const nBar4=nBar1 + nBar2 + nBar3;
 
         //------------------------------
 
-        const lambda = O21 * K26;
-
-        const Pt = Math.exp(-1 * lambda * 8760);
+        const lambda = (nBar1+sumConnF) * nBar2 * nBar3 * 0.000000001;
+        
+        const Pt = Math.exp(-1 * lambda * 8760)*100;
         const tn = 8760 * tauOn / 100;
 
-        req.body.param = { ...param, kLayer, square, countPrintedConductor, sumConnF, tauOn, tauOff, сWaveSoldering, lambda, Pt, tn }
+       const bar1 = nBar1/nBar4*100;
+       const bar2 = nBar2/nBar4*100;
+       const bar3 = nBar3/nBar4*100;
+       const bar4 = nBar4/nBar4*100;
+
+        req.body.param = { ...param, kLayer, square, countPrintedConductor, sumConnF, tauOn, tauOff, сWaveSoldering, lambda, Pt, tn,bar1,bar2,bar3,bar4 }
         req.body.param.sum1 = JSON.stringify(param.sum1)
         req.body.param.sum2 = JSON.stringify(param.sum2)
         next()

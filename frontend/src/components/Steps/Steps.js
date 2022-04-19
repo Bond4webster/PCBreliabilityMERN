@@ -18,15 +18,15 @@ export const Steps = ({ sendToResult }) => {
         {
             kExploitation: "2",
             kAcceptance: "1",
-            layer: "1",
+            layer: "2",
             countHoles: "338",
             a: "20",
             b: "16",
-            kWidth: "3",
+            kWidth: "1",
             cMountConnect: "110",
             cMetalConnect: "12",
-            n1: "12",
-            n2: "0",
+            n1: "0",
+            n2: "12",
             cycleCount: "2",
             cycleCount2: "4",
             sum1: [],
@@ -161,10 +161,10 @@ export const Steps = ({ sendToResult }) => {
                                     />
                                     <Clever
                                         id="cycleCount"
-                                        label="m"
+                                        label="Число циклов наработки, m"
                                         var1={"t"}
                                         var2={"tau"}
-                                        legend={"Этапы работы"}
+                                        legend={"Циклы наработки"}
                                         value={param.cycleCount}
                                         description={description.cycleCount}
                                         descriptionVar1={description.tPP}

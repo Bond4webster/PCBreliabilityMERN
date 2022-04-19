@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { TableCycle } from '../components/TableCycle';
 import { TableTemp } from '../components/TableTemp';
+import { Chart } from '../components/Chart';
 
 export const Result = ({ resUrl }) => {
     const [values, setValues] = useState();
@@ -12,7 +13,10 @@ export const Result = ({ resUrl }) => {
         const response = await axios.get(`http://localhost:5000/history/${resUrl}`);
         setValues(response.data);
     }
-    if(typeof values === "object"){
+    if (typeof values === "object") {
+
+        const bars = [values.bar1, values.bar2, values.bar3,values.bar4]
+
         return (
             <div>
                 <table className="table">
@@ -47,7 +51,7 @@ export const Result = ({ resUrl }) => {
                             <td>{values.square}</td>
                             <td>{values.countPrintedConductor}</td>
                             <td>{values.kWidth}</td>
-                            <td>{Number(values.sumConnF).toExponential(2)}</td>
+                            <td>{Number(values.sumConnF)}</td>
                             <td>{values.cycleCount}</td>
                             <td>{values.cycleCount2}</td>
                             <td>{values.tauOn}</td>
@@ -62,19 +66,26 @@ export const Result = ({ resUrl }) => {
                     </tbody>
                 </table>
                 <div className="row">
-                    <TableTemp arr={JSON.parse(values.sum1)}/>
-                    <TableCycle arr={JSON.parse(values.sum2)}/>
+                    <div className="col-12 col-md-6">
+                        <div className="row">
+                            <TableTemp arr={JSON.parse(values.sum1)} />
+                            <TableCycle arr={JSON.parse(values.sum2)} />
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-6">
+                        <Chart bars={bars} />
+                    </div>
                 </div>
                 <p className='pl-3'>
                     {values.lambda ? `Интенсивность отказов печатной платы: ${values.lambda.toExponential(2)}` : "Заполните пустые поля"}<br />
                     Вероятность безотказной работы печатной платы: {values.Pt}<br />
                     Наработка печатной платы за один календарный год: {values.tn} ч
                 </p>
-    
+
             </div>
         )
-    }else{
+    } else {
         return null
     }
-    
+
 }

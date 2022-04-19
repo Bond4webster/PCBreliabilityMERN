@@ -82,6 +82,18 @@ const History = db.define('history',{
     tn:{
         type: DataTypes.DOUBLE
     },
+    bar1:{
+        type: DataTypes.DOUBLE
+    },
+    bar2:{
+        type: DataTypes.DOUBLE
+    },
+    bar3:{
+        type: DataTypes.DOUBLE
+    },
+    bar4:{
+        type: DataTypes.DOUBLE
+    }
 },{
     freezeTableName: true,
     timestamps: false
